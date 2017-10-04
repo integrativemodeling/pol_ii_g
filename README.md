@@ -4,12 +4,12 @@ These scripts demonstrate the use of IMP, MODELLER, and PMI in the modeling of t
 Localizing gdown1 on POL II using integrative structure modeling
 
 Input data (directory data):
-44 DSSO cross-links involving gdown1 were identified via mass spectrometry; 56 of these cross-links were intramolecular and seven were intermolecular with the 19S proteasome, informing respectively the ecm29 conformation and the localization of ecm29 relative to the proteasome.
+44 DSSO cross-links involving gdown1 were identified via mass spectrometry.
 The Pol II structure used was obtained from the PDB (code 5FLM); it was determined primarily based on a cryo-EM density map at 3.4Å resolution (EMDB code: 3218) {Bernesky, 2016 Nature}.
 Representation of gdown1 relied on (i) secondary structure and disordered regions predicted by PSIPRED based on the gdown1 sequence (Buchan et al., 2013; Jones, 1999).
 
 Running the simulations (directory production_scripts)
--modeling.py: pmi modeling scripts for running the production simulations: The search for good-scoring models relied on Gibbs sampling, based on the Metropolis Monte Carlo algorithm. We suggest producing at least 5 million models from 100 independent runs, each starting from a different initial conformation of ecm29 to have proper statistics.
+-modeling.py: pmi modeling scripts for running the production simulations: The search for good-scoring models relied on Gibbs sampling, based on the Metropolis Monte Carlo algorithm. We suggest producing at least 5 million models from 100 independent runs, each starting from a different initial conformation of gdown1 to have proper statistics.
 -submit.sub: SGE-cluster based submission scripts to run automatically 500 independent runs.
 -The compressed 500 independent trajectories are accessible at: X.tar
 
