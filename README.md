@@ -1,10 +1,10 @@
 # pol_ii_g
-These scripts demonstrate the use of IMP, MODELLER, and PMI in the modeling of the POl II (G) complex using DSSO chemical cross-links.
+These scripts demonstrate the use of IMP, MODELLER, and PMI in the modeling of the POl II (G) complex using DSS chemical cross-links.
 
 Localizing gdown1 on POL II using integrative structure modeling
 
 Input data (directory data):
-40 DSS cross-links involving gdown1 were identified via mass spectrometry, 14 of these cross-links were intramolecular and 26 were intermolecular with Pol II. The Pol II structure used was obtained from the PDB (code 5FLM); it was determined primarily based on a cryo-EM density map at 3.4Å resolution (EMDB code: 3218) {Bernesky, 2016 Nature}.
+40 DSS cross-links involving gdown1 were identified via mass spectrometry, 14 of these cross-links were intramolecular and 26 were intermolecular with Pol II. The Pol II structure used was obtained from the PDB (code 5FLM); it was determined primarily based on a cryo-EM density map at 3.4 Å resolution (EMDB code: 3218) {Bernesky, 2016 Nature}.
 Representation of gdown1 relied on (i) secondary structure and disordered regions predicted by PSIPRED based on the gdown1 sequence (Buchan et al., 2013; Jones, 1999).
 
 Running the simulations (directory production_scripts)
