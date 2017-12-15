@@ -13,7 +13,7 @@ import IMP.pmi.macros
 import IMP.pmi.restraints
 import IMP.pmi.restraints.stereochemistry
 import IMP.pmi.restraints.basic
-import IMP.pmi.io.crosslink
+import IMP.pmi.io.crosslink0
 import IMP.pmi.restraints.crosslinking
 import os,sys
 
@@ -116,14 +116,13 @@ for i,mol in enumerate(pol2g_mols):
  #crystal structures of RPB1 and RPB2   
         if i in range(12):
 		print i, mol
-                #dof.create_flexible_beads(mol.get_non_atomic_residues(),max_trans=RB_MAX_TRANS,resolution=10)
                 pol2g_unstructured=mol.get_non_atomic_residues()
                 pol2g_structured=mol.get_atomic_residues()
                 pol2g_all=mol.get_residues()
                 pol2g_complex.append(pol2g_all)
                 pol2g_complexn.append(pol2g_unstructured)
-        if i in [12]:
-
+     
+	if i in [12]:
                 pol2g_u=mol.get_non_atomic_residues()
                 pol2g_rigid1=mol.get_residues()
                 dof.create_flexible_beads(pol2g_rigid1,max_trans=FLEX_MAX_TRANS,resolution=10)
@@ -133,8 +132,6 @@ print dof
 
 pol2g_molc2=[x for x in pol2g_complex]
 pol2g_molc3=[x for x in pol2g_complexn]
-#print pol2g_molc2
-#print pol2g_molc3
 dof.create_flexible_beads(pol2g_molc3,max_trans=FLEX_MAX_TRANS,resolution=10)
 
 
@@ -154,7 +151,6 @@ for mol in pol2g_mols:
     cr.add_to_model()
     output_objects.append(cr)
     crs.append(cr)
-    #print mol
 
 sf = IMP.core.RestraintsScoringFunction(IMP.pmi.tools.get_restraint_set(mdl))
 print sf.evaluate(False)
@@ -194,16 +190,9 @@ output_objects.append(ev3)
 sf = IMP.core.RestraintsScoringFunction(IMP.pmi.tools.get_restraint_set(mdl))
 print "ev3", sf.evaluate(False)
 
-#evr = IMP.pmi.restraints.stereochemistry.ExcludedVolumeSphere(included_objects = pol2g_mols,resolution=10)
-#evr.add_to_model()
-#output_objects.append(evr)
-#sf = IMP.core.RestraintsScoringFunction(IMP.pmi.tools.get_restraint_set(mdl))
-#print sf.evaluate(False)
 
 print pol2g_mols
-#print mols
 ## Crosslink restraint
-## Not using the proxl database loader for now
 kw = IMP.pmi.io.crosslink.CrossLinkDataBaseKeywordsConverter()
 kw.set_protein1_key("prot1")
 kw.set_protein2_key("prot2")
@@ -245,7 +234,7 @@ rex=IMP.pmi.macros.ReplicaExchange0(mdl,
 				    num_sample_rounds = 1,
 				    number_of_best_scoring_models = 5,
                                     monte_carlo_sample_objects=dof.get_movers(),  # pass MC movers
-                                    global_output_directory='ganesans_gdown3/gdownrb_%d' % taskid,
+                                    global_output_directory='gdownrb_%d' % taskid,
                                     output_objects=output_objects,
                                     monte_carlo_steps=10,
                                     number_of_frames=50000
