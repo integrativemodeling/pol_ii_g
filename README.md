@@ -33,6 +33,7 @@ various scripts to analysis the simulations. we give more details scripts that a
 Plotting the results (directory plotting_scripts)
 Python scripts for generating figures from the paper.
 
+License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. 
 
 Publication: 
 Architecture of Pol II(G) and molecular mechanism of transcription regulation by Gdown1 
