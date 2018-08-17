@@ -17,7 +17,7 @@
 
 #hostname
 # load MPI and Sali modules
-module load imp/2.6.2
+module load imp # works with imp.2.9.0
 module load openmpi-1.6-nodlopen
 module load sali-libraries
 module load python/scikit
