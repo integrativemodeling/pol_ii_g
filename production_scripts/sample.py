@@ -34,7 +34,8 @@ def add_nonatomic_rep(mol,chain,unstructured_bead_size,clr):
 ##############################################################
 ##############################################################
 ###################### SYSTEM SETUP #####################
-taskid = int(sys.argv[1]) 
+taskid = int(sys.argv[1])
+if '--test' in sys.argv: num_frames=1000
 #input files 
 xlink_file = os.path.expanduser('~')+'/gdown1/data/allcxg.csv'
 all_cg_bead_size = 10
