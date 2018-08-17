@@ -1,0 +1,7 @@
+title: Architecture of Pol II(G) and molecular mechanism of transcription regulation by Gdown1
+tags: [chemical crosslinks, PMI, EM]
+pmid: XXX
+prereqs: [python/numpy]
+test:
+    runtime: 24h
+build: release
