@@ -21,8 +21,7 @@ various scripts to analysis the simulations. we give more details scripts that a
 -random_subsets_best_score_convergence.py: we test if adding more models improve our sampling of top scores. input file to the script is a list of all the Total_Score from the simulations. For each subset, we perform 100 sub-samplings to compute error bars. We give the file twice to check how the error bars varies.
 -Kolmogorov_Smirnov_2Samples.py: we test if the distribution of from two independent subsets are not unsimilar.
 
--The good-scoring models that have been selected for precision-based clustering based on RMSD metric are located in: XXX 
-The file name format is ${trajectory_number}_${frame_number}.rmf3
+-The good-scoring models that have been selected for precision-based clustering based on RMSD metric are located in: results/models. The file name format is ${trajectory_number}_${frame_number}.rmf3
 
 -sample_precision.py: Given a RMSD matrix, we compute the 𝛘2-test for homogeneity of proportions{McDonald, 2014} and compute the best precision for which sampling has converged.
 -rmsf.py: Given a list of structures, compute the average RMSF, which indicates the precision of the structures in a cluster.
