@@ -4,15 +4,18 @@ These scripts demonstrate the use of IMP, MODELLER, and PMI in the modeling of t
 Localizing gdown1 on POL II using integrative structure modeling
 
 Input data (directory data):
+
 40 DSS cross-links involving gdown1 were identified via mass spectrometry, 14 of these cross-links were intramolecular and 26 were intermolecular with Pol II. The Pol II structure used was obtained from the PDB (code 5FLM); it was determined primarily based on a cryo-EM density map at 3.4 Å resolution (EMDB code: 3218) {Bernesky, 2016 Nature}.
 Representation of gdown1 relied on (i) secondary structure and disordered regions predicted by PSIPRED based on the gdown1 sequence (Buchan et al., 2013; Jones, 1999).
 
 Running the simulations (directory production_scripts)
+
 -sample.py: pmi modeling scripts for running the production simulations: The search for good-scoring models relied on Gibbs sampling, based on the Metropolis Monte Carlo algorithm. We suggest producing at least 5 million models from 100 independent runs, each starting from a different initial conformation of gdown1 to have proper statistics.
 -submit.sub: SGE-cluster based submission scripts to run automatically 100 independent runs.
 -The compressed 100 independent trajectories are accessible at: X.tar
 
 Analyzing the simulations (directory analysis_scripts)
+
 various scripts to analysis the simulations. we give more details scripts that allows us to test for sampling convergence.
 -select_good_scoring_models.py: python script that read and select RMF files based on good scoring model criteria explained in the methods section.
 -random_subsets_best_score_convergence.py: we test if adding more models improve our sampling of top scores. input file to the script is a list of all the Total_Score from the simulations. For each subset, we perform 100 sub-samplings to compute error bars. We give the file twice to check how the error bars varies.
