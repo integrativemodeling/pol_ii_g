@@ -12,7 +12,7 @@
 #$ -cwd
 #$ -pe ompi 4
 #$ -q lab.q
-#$ -t 1-200
+#$ -t 1-100
 #$ -l hostname="i*"
 
 #hostname
