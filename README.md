@@ -23,7 +23,7 @@ various scripts to analysis the simulations. we give more details scripts that a
 
 -The good-scoring models that have been selected for precision-based clustering based on RMSD metric are located in: results/models. The file name format is ${trajectory_number}_${frame_number}.rmf3
 
--sample_precision.py: Given a RMSD matrix, we compute the 𝛘2-test for homogeneity of proportions{McDonald, 2014} and compute the best precision for which sampling has converged.
+-sample_precision.py: Given a RMSD matrix (/results/Clustering/rmsd_matrix.tar.gz), we compute the 𝛘2-test for homogeneity of proportions{McDonald, 2014} and compute the best precision for which sampling has converged.
 -rmsf.py: Given a list of structures, compute the average RMSF, which indicates the precision of the structures in a cluster.
 
 Plotting the results (directory plotting_scripts)
