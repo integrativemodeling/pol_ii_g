@@ -11,18 +11,23 @@ Representation of gdown1 relied on (i) secondary structure and disordered region
 Running the simulations (directory production_scripts)
 
 -sample.py: pmi modeling scripts for running the production simulations: The search for good-scoring models relied on Gibbs sampling, based on the Metropolis Monte Carlo algorithm. We suggest producing at least 5 million models from 100 independent runs, each starting from a different initial conformation of gdown1 to have proper statistics.
+
 -submit.sub: SGE-cluster based submission scripts to run automatically 100 independent runs.
 
 Analyzing the simulations (directory analysis_scripts)
 
 various scripts to analysis the simulations. we give more details scripts that allows us to test for sampling convergence.
+
 -select_good_scoring_models.py: python script that read and select RMF files based on good scoring model criteria explained in the methods section.
+
 -random_subsets_best_score_convergence.py: we test if adding more models improve our sampling of top scores. input file to the script is a list of all the Total_Score from the simulations. For each subset, we perform 100 sub-samplings to compute error bars. We give the file twice to check how the error bars varies.
+
 -Kolmogorov_Smirnov_2Samples.py: we test if the distribution of from two independent subsets are not unsimilar.
 
 -The good-scoring models that have been selected for precision-based clustering based on RMSD metric are located in: results/models. The file name format is ${trajectory_number}_${frame_number}.rmf3
 
 -sample_precision.py: Given a RMSD matrix (/results/Clustering/rmsd_matrix.tar.gz), we compute the 𝛘2-test for homogeneity of proportions{McDonald, 2014} and compute the best precision for which sampling has converged.
+
 -rmsf.py: Given a list of structures, compute the average RMSF, which indicates the precision of the structures in a cluster.
 
 Plotting the results (directory plotting_scripts)
