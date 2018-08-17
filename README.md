@@ -12,7 +12,6 @@ Running the simulations (directory production_scripts)
 
 -sample.py: pmi modeling scripts for running the production simulations: The search for good-scoring models relied on Gibbs sampling, based on the Metropolis Monte Carlo algorithm. We suggest producing at least 5 million models from 100 independent runs, each starting from a different initial conformation of gdown1 to have proper statistics.
 -submit.sub: SGE-cluster based submission scripts to run automatically 100 independent runs.
--The compressed 100 independent trajectories are accessible at: X.tar
 
 Analyzing the simulations (directory analysis_scripts)
 
