@@ -1,0 +1,53 @@
+#!/bin/bash
+#$ -S /bin/bash
+#$ -N Gdown1
+#$ -o OUT_ERR
+#$ -e OUT_ERR
+#$ -r n
+#$ -j n
+#$ -l h_rt=15:00:00 
+#$ -l arch=linux-x64
+#$ -R yes
+##$ -V
+#$ -cwd
+#$ -pe ompi 4
+#$ -q lab.q
+#$ -t 1-200
+#$ -l hostname="i*"
+
+#hostname
+# load MPI and Sali modules
+module load imp/2.6.2
+module load openmpi-1.6-nodlopen
+module load sali-libraries
+module load python/scikit
+
+
+MODELING_SCRIPT=sample.py
+
+hostname
+date
+
+PWD_PARENT=$(pwd)
+
+i=$(expr $SGE_TASK_ID)
+DIR=modeling$i
+
+rm -rf $DIR
+if [ ! -d $DIR ]; then
+    mkdir $DIR
+    cp  ./* $DIR
+fi
+cd $DIR
+PWD=$(pwd)
+echo $PWD_PARENT : $PWD
+
+if [ $PWD_PARENT != $PWD ]; then
+
+    mpirun -np $NSLOTS python ./$MODELING_SCRIPT $i
+    cd ..
+fi
+
+hostname
+date
+
