@@ -208,9 +208,9 @@ output_objects.append(xlr)
 display_restraints.append(xlr)
 xlr.rs.set_weight(50.0)
 # Set PSI value instead of sampling it
-xlr.set_psi_is_sampled(False)
-psi = xlr.psi_dictionary["PSI"][0]
-psi.set_scale(0.04) 
+xlr.set_psi_is_sampled(True)
+#psi = xlr.psi_dictionary["PSI"][0]
+#psi.set_scale(0.04) 
 sf = IMP.core.RestraintsScoringFunction(IMP.pmi.tools.get_restraint_set(mdl))
 print sf.evaluate(False)
 
