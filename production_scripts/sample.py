@@ -34,8 +34,12 @@ def add_nonatomic_rep(mol,chain,unstructured_bead_size,clr):
 ##############################################################
 ##############################################################
 ###################### SYSTEM SETUP #####################
-taskid = int(sys.argv[1])
-if '--test' in sys.argv: num_frames=1000
+num_frames = 50000
+if '--test' in sys.argv:
+    num_frames=25
+    taskid=0
+else:
+    taskid = int(sys.argv[1])
 #input files 
 xlink_file = os.path.expanduser('~')+'/gdown1/data/allcxg.csv'
 all_cg_bead_size = 10
@@ -238,7 +242,7 @@ rex=IMP.pmi.macros.ReplicaExchange0(mdl,
                                     global_output_directory='gdownrb_%d' % taskid,
                                     output_objects=output_objects,
                                     monte_carlo_steps=10,
-                                    number_of_frames=50000
+                                    number_of_frames=num_frames
 				   )
 
 rex.execute_macro()
