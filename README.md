@@ -14,6 +14,8 @@ Running the simulations (directory production_scripts)
 
 -submit.sub: SGE-cluster based submission scripts to run automatically 100 independent runs.
 
+-The compressed 100 independent trajectories are accessible at: /salilab/park3/ganesans/gdown1_trajectories/gdown1.tar.gz
+
 Analyzing the simulations (directory analysis_scripts)
 
 various scripts to analysis the simulations. we give more details scripts that allows us to test for sampling convergence.
@@ -33,7 +35,19 @@ various scripts to analysis the simulations. we give more details scripts that a
 Plotting the results (directory plotting_scripts)
 Python scripts for generating figures from the paper.
 
+INFORMATION:
+
+Author(s): Sai J. Ganesan
+
+Date: September 6th, 2018
+
 License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. 
+
+Last known good IMP version: IMP 2.9 
+
+Testable: Yes
+
+Parallelizeable: Yes
 
 Publication: 
 Architecture of Pol II(G) and molecular mechanism of transcription regulation by Gdown1 
