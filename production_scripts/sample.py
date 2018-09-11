@@ -13,7 +13,6 @@ import IMP.pmi.macros
 import IMP.pmi.restraints
 import IMP.pmi.restraints.stereochemistry
 import IMP.pmi.restraints.basic
-import IMP.pmi.io.crosslink0
 import IMP.pmi.restraints.crosslinking
 import os,sys
 
