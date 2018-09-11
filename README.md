@@ -49,8 +49,7 @@ Testable: Yes
 
 Parallelizeable: Yes
 
-Publication: 
-Architecture of Pol II(G) and molecular mechanism of transcription regulation by Gdown1 
-
+_Publications_:
 Miki Jishage, Xiaodi Yu, Yi Shi, Sai J. Ganesan, Andrej Sali, Brian T. Chait, Francisco Asturias, and Robert G. Roeder
-https://doi.org/10.1038/s41594-018-0118-5
+*Architecture of Pol II(G) and molecular mechanism of transcription regulation by Gdown1*
+**Nat Struct Mol Biol.** (2018) 25(9):859-867. doi: https://doi.org/10.1038/s41594-018-0118-5
