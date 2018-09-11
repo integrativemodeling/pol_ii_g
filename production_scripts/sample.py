@@ -17,7 +17,7 @@ import IMP.pmi.restraints.crosslinking
 import os,sys
 
 def add_atomic_rep(mol,chain,unstructured_bead_size,clr,prot):
-        atomic = mol.add_structure(os.path.expanduser('~')+'/gdown1/data/'+prot +".pdb",chain_id=chain,offset=0)
+        atomic = mol.add_structure('../data/'+prot +".pdb",chain_id=chain,offset=0)
         mol.add_representation(atomic, resolutions=[1,10],color = clr)
         if len(mol[:]-atomic) >0:
             mol.add_representation(mol[:]-atomic,resolutions=[10],color=clr)
@@ -40,7 +40,7 @@ if '--test' in sys.argv:
 else:
     taskid = int(sys.argv[1])
 #input files 
-xlink_file = os.path.expanduser('~')+'/gdown1/data/allcxg.csv'
+xlink_file = '../data/allcxg.csv'
 all_cg_bead_size = 10
 
 #MC parameters
@@ -53,7 +53,7 @@ SRB_MAX_ROT = 0.1
 
 # Input sequences
 pol2g_seq_file ='pol2gdown.fasta'
-pol2g_seqs = IMP.pmi.topology.Sequences(os.path.expanduser('~')+'/gdown1/data/'+pol2g_seq_file)
+pol2g_seqs = IMP.pmi.topology.Sequences('../data/'+pol2g_seq_file)
 pol2g_components={"A":["RPB1"],"B":["RPB2"],"C":["RPB3"],"D":["RPB4"],"E":["RPB5"],"F":["RPB6"],"G":["RPB7"],"H":["RPB8"],"I":["RPB9"],"J":["RPB10"],"K":["RPB11"],"L":["RPB12"],"X":["GDOWN1"]}
 pol2g_colors ={"A":[0.1],"B":[0.2],"C":[0.3],"D":[0.4],"E":[0.5],"F":[0.6],"G":[0.7],"H":[0.8],"I":[0.9],"J":[0.05],"K":[0.15],"L":[0.25],"X":[0.86]}
 
