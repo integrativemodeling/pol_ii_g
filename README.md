@@ -35,19 +35,21 @@ various scripts to analysis the simulations. we give more details scripts that a
 Plotting the results (directory plotting_scripts)
 Python scripts for generating figures from the paper.
 
-INFORMATION:
+## Information
 
-Author(s): Sai J. Ganesan
+_Author(s)_: Sai J. Ganesan
 
-Date: September 6th, 2018
+_Date_: September 6th, 2018
 
-License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. 
+_License_: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+This work is licensed under the Creative Commons Attribution-ShareAlike 4.0
+International License.
 
-Last known good IMP version: IMP 2.9 
+_Last known good IMP version_: [![build info](https://integrativemodeling.org/systems/?sysstat=30&branch=master)](https://integrativemodeling.org/systems/) [![build info](https://integrativemodeling.org/systems/?sysstat=30&branch=develop)](https://integrativemodeling.org/systems/)
 
-Testable: Yes
+_Testable_: Yes
 
-Parallelizeable: Yes
+_Parallelizeable_: Yes
 
 _Publications_:
 Miki Jishage, Xiaodi Yu, Yi Shi, Sai J. Ganesan, Andrej Sali, Brian T. Chait, Francisco Asturias, and Robert G. Roeder
