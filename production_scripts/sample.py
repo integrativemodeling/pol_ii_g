@@ -6,6 +6,7 @@ import RMF
 import IMP.atom
 import IMP.rmf
 import IMP.pmi
+import IMP.pmi.mmcif
 import IMP.pmi.tools
 import IMP.pmi.topology
 import IMP.pmi.dof
@@ -61,6 +62,14 @@ pol2g_colors ={"A":[0.1],"B":[0.2],"C":[0.3],"D":[0.4],"E":[0.5],"F":[0.6],"G":[
 # Setup System and add a State
 mdl = IMP.Model()
 s = IMP.pmi.topology.System(mdl)
+
+if '--mmcif' in sys.argv:
+    # Record the modeling protocol to an mmCIF file
+    po = IMP.pmi.mmcif.ProtocolOutput(open('pol_ii_g.cif', 'w'))
+    s.add_protocol_output(po)
+    po.system.title = ('Architecture of Pol II(G) and molecular mechanism '
+                       'of transcription regulation by Gdown1')
+
 st = s.create_state()
 
 # Add Molecules for each component as well as representations
@@ -245,3 +254,7 @@ rex=IMP.pmi.macros.ReplicaExchange0(mdl,
 				   )
 
 rex.execute_macro()
+
+
+if '--mmcif' in sys.argv:
+    po.flush()
