@@ -1,6 +1,7 @@
-   	
 """This script samples RNA_POL2_HUMAN subunits with GDOWN1 inhibitor cross-links data from CHAIT's GROUP
 """
+
+from __future__ import print_function
 import IMP
 import RMF
 import IMP.atom
@@ -132,7 +133,7 @@ for i,mol in enumerate(pol2g_mols):
   # create a rigid body for each domain with structural information, the flexible beads inside are part of the rigid body, the remaining part of the 
  #crystal structures of RPB1 and RPB2   
         if i in range(12):
-		print i, mol
+		print(i, mol)
                 pol2g_unstructured=mol.get_non_atomic_residues()
                 pol2g_structured=mol.get_atomic_residues()
                 pol2g_all=mol.get_residues()
@@ -145,7 +146,7 @@ for i,mol in enumerate(pol2g_mols):
                 dof.create_flexible_beads(pol2g_rigid1,max_trans=FLEX_MAX_TRANS,resolution=10)
 
 
-print dof
+print(dof)
 
 pol2g_molc2=[x for x in pol2g_complex]
 pol2g_molc3=[x for x in pol2g_complexn]
@@ -170,7 +171,7 @@ for mol in pol2g_mols:
     crs.append(cr)
 
 sf = IMP.core.RestraintsScoringFunction(IMP.pmi.tools.get_restraint_set(mdl))
-print sf.evaluate(False)
+print(sf.evaluate(False))
 
 # Excluded volume - automatically more efficient due to rigid bodies
 
@@ -180,7 +181,7 @@ ev1.set_label('gdown1')
 output_objects.append(ev1)
 
 sf = IMP.core.RestraintsScoringFunction(IMP.pmi.tools.get_restraint_set(mdl))
-print "ev1", sf.evaluate(False)
+print("ev1", sf.evaluate(False))
 
 ev2 = IMP.pmi.restraints.stereochemistry.ExcludedVolumeSphere(included_objects = gdown1,
                                                               other_objects = pol,
@@ -192,9 +193,9 @@ ev2.set_label('all')
 output_objects.append(ev2)
 
 sf = IMP.core.RestraintsScoringFunction(IMP.pmi.tools.get_restraint_set(mdl))
-print "ev2", sf.evaluate(False)
-print gdown1
-print pol
+print("ev2", sf.evaluate(False))
+print(gdown1)
+print(pol)
 
 
 ev3 = IMP.pmi.restraints.stereochemistry.ExcludedVolumeSphere(included_objects = pol2g_molc3,resolution=10)
@@ -205,10 +206,10 @@ ev3.set_label('all')
 output_objects.append(ev3)
 
 sf = IMP.core.RestraintsScoringFunction(IMP.pmi.tools.get_restraint_set(mdl))
-print "ev3", sf.evaluate(False)
+print("ev3", sf.evaluate(False))
 
 
-print pol2g_mols
+print(pol2g_mols)
 ## Crosslink restraint
 kw = IMP.pmi.io.crosslink.CrossLinkDataBaseKeywordsConverter()
 kw.set_protein1_key("prot1")
@@ -228,7 +229,7 @@ xlr.set_psi_is_sampled(True)
 #psi = xlr.psi_dictionary["PSI"][0]
 #psi.set_scale(0.04) 
 sf = IMP.core.RestraintsScoringFunction(IMP.pmi.tools.get_restraint_set(mdl))
-print sf.evaluate(False)
+print(sf.evaluate(False))
 
 dof.get_nuisances_from_restraint(xlr) # needed to sample the nuisance particles (noise params)
 
@@ -239,9 +240,9 @@ if not s.dry_run:
     IMP.pmi.tools.shuffle_configuration(gdown1)
 
     dof.optimize_flexible_beads(100)
-print dof.get_movers()
-print len(dof.get_movers())
-print gdown1
+print(dof.get_movers())
+print(len(dof.get_movers()))
+print(gdown1)
 # Run replica exchange Monte Carlo sampling
 rex=IMP.pmi.macros.ReplicaExchange0(mdl,
                                     root_hier=root_hier,                          # pass the root hierarchy
