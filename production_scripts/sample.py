@@ -38,6 +38,8 @@ num_frames = 50000
 if '--test' in sys.argv:
     num_frames=25
     taskid=0
+elif '--dry-run' in sys.argv:
+    taskid=0
 else:
     taskid = int(sys.argv[1])
 #input files 
@@ -69,6 +71,8 @@ if '--mmcif' in sys.argv:
     s.add_protocol_output(po)
     po.system.title = ('Architecture of Pol II(G) and molecular mechanism '
                        'of transcription regulation by Gdown1')
+
+s.dry_run = '--dry-run' in sys.argv
 
 st = s.create_state()
 
@@ -231,9 +235,10 @@ dof.get_nuisances_from_restraint(xlr) # needed to sample the nuisance particles 
 ####################### SAMPLING #####################
 # First shuffle the system
 
-IMP.pmi.tools.shuffle_configuration(gdown1) 
+if not s.dry_run:
+    IMP.pmi.tools.shuffle_configuration(gdown1)
 
-dof.optimize_flexible_beads(100)
+    dof.optimize_flexible_beads(100)
 print dof.get_movers()
 print len(dof.get_movers())
 print gdown1
@@ -250,8 +255,8 @@ rex=IMP.pmi.macros.ReplicaExchange0(mdl,
                                     global_output_directory='gdownrb_%d' % taskid,
                                     output_objects=output_objects,
                                     monte_carlo_steps=10,
-                                    number_of_frames=num_frames
-				   )
+                                    number_of_frames=num_frames,
+                                    test_mode=s.dry_run)
 
 rex.execute_macro()
 
