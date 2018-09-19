@@ -4,6 +4,7 @@
 from __future__ import print_function
 import IMP
 import RMF
+import ihm
 import IMP.atom
 import IMP.rmf
 import IMP.pmi
@@ -72,6 +73,8 @@ if '--mmcif' in sys.argv:
     s.add_protocol_output(po)
     po.system.title = ('Architecture of Pol II(G) and molecular mechanism '
                        'of transcription regulation by Gdown1')
+    # Add publication
+    po.system.citations.append(ihm.Citation.from_pubmed_id(30190596))
 
 s.dry_run = '--dry-run' in sys.argv
 
