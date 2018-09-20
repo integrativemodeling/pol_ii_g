@@ -37,6 +37,21 @@ class Tests(unittest.TestCase):
         self.assertEqual(s.citations[0].doi, '10.1038/s41594-018-0118-5')
         self.assertEqual(len(s.software), 2)
         self.assertEqual(len(s.orphan_starting_models), 12)
+        # Should be 1 state
+        self.assertEqual(len(s.state_groups), 1)
+        state1, = s.state_groups[0]
+        # Should be 1 model
+        self.assertEqual(sum(len(x) for x in state1), 1)
+        # Check # of spheres and atoms in each model
+        m = state1[0][0]
+        self.assertEqual(len(m._spheres), 3640)
+        self.assertEqual(len(m._atoms), 0)
+        # Should be 1 ensemble
+        self.assertEqual([e.num_models for e in s.ensembles], [100])
+        # Just one restraint - crosslinks
+        xl, = s.restraints
+        self.assertEqual(len(xl.experimental_cross_links), 40)
+        self.assertEqual(len(xl.cross_links), 40)
 
 
 if __name__ == '__main__':

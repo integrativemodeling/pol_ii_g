@@ -266,4 +266,25 @@ rex.execute_macro()
 
 
 if '--mmcif' in sys.argv:
+    # todo: fix numbers
+    pp = po._add_simple_postprocessing(num_models_begin=5000000,
+                                       num_models_end=1693)
+    e = po._add_simple_ensemble(pp, name="Cluster 0", num_models=100,
+                                drmsd=12.2, num_models_deposited=1,
+                                localization_densities={}, ensemble_file=None)
+
+    # Add one output model
+    rh = RMF.open_rmf_file_read_only('../results/models/1_1001.rmf3')
+    IMP.rmf.link_hierarchies(rh, [root_hier])
+    IMP.rmf.load_frame(rh, RMF.FrameID(0))
+    model = po.add_model(e.model_group)
+
+    # Correct number of output models to account for multiple runs
+    model.protocol.steps[-1].num_models_end = 5000000
+
+    # Correct crosslinker type from XLDSS to DSS
+    for r in po.system.restraints:
+        if hasattr(r, 'linker_type') and r.linker_type == 'XLDSS':
+            r.linker_type = 'DSS'
+
     po.flush()
