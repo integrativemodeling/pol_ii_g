@@ -1,5 +1,5 @@
 
-#All the good scoring models, clustering data, crosslink satisfaction and localization densities. 
+## All the good scoring models, clustering data, crosslink satisfaction and localization densities. 
 
 _Models/good_scoring_models.tar.xz_:  all good scoring models selected from runs [1693 modles], in the format X_Y.rmf3, where X is the run number and Y is the frame number.
 
