@@ -5,6 +5,7 @@ from __future__ import print_function
 import IMP
 import RMF
 import ihm
+import ihm.analysis
 import IMP.atom
 import IMP.rmf
 import IMP.pmi
@@ -266,21 +267,53 @@ rex.execute_macro()
 
 
 if '--mmcif' in sys.argv:
-    # todo: fix numbers
-    pp = po._add_simple_postprocessing(num_models_begin=5000000,
-                                       num_models_end=1693)
-    e = po._add_simple_ensemble(pp, name="Cluster 0", num_models=100,
+    import tempfile
+    import shutil
+    import subprocess
+
+    # Correct number of output models to account for multiple runs
+    protocol = po.system.orphan_protocols[-1]
+    protocol.steps[-1].num_models_end = 5000000
+    # Next, we filtered down to 1693 good scoring models
+    analysis = ihm.analysis.Analysis()
+    protocol.analyses.append(analysis)
+    analysis.steps.append(ihm.analysis.FilterStep(
+                            feature='energy/score',
+                            num_models_begin=5000000, num_models_end=1693))
+    # Finally, we extracted the largest cluster
+    with open('../results/Clustering/Clusone.0.all.txt') as fh:
+        num_cluster_models = len(fh.readlines())
+    analysis.steps.append(ihm.analysis.ClusterStep(
+                            feature='RMSD', num_models_begin=1693,
+                            num_models_end=num_cluster_models))
+
+    e = po._add_simple_ensemble(analysis.steps[-1],
+                                name="Cluster 0", num_models=num_cluster_models,
                                 drmsd=12.2, num_models_deposited=1,
                                 localization_densities={}, ensemble_file=None)
 
-    # Add one output model
-    rh = RMF.open_rmf_file_read_only('../results/models/1_1001.rmf3')
+    # Add localization densities
+    asym = po.asym_units['GDOWN1.0']
+    for domain, seqrng in [('GDOWN1', None), ('Ct', (300,335)), ('Nt', (1,94))]:
+        loc = ihm.location.OutputFileLocation(
+                '../results/Localization Densities/%s.mrc' % domain)
+        den = ihm.model.LocalizationDensity(file=loc,
+                              asym_unit=asym(*seqrng) if seqrng else asym)
+        e.densities.append(den)
+
+    # Add one output model from this cluster
+    tmpd = tempfile.mkdtemp()
+    cluster_models = '../results/Clustering/cluster_run1_models.tar.xz'
+    rmf_file = 'RMF/24_36065.rmf3'
+    subprocess.check_call(['tar', '-xJf', os.path.abspath(cluster_models),
+                           rmf_file], cwd=tmpd)
+    rh = RMF.open_rmf_file_read_only(os.path.join(tmpd, rmf_file))
     IMP.rmf.link_hierarchies(rh, [root_hier])
     IMP.rmf.load_frame(rh, RMF.FrameID(0))
-    model = po.add_model(e.model_group)
+    del rh
+    shutil.rmtree(tmpd)
 
-    # Correct number of output models to account for multiple runs
-    model.protocol.steps[-1].num_models_end = 5000000
+    model = po.add_model(e.model_group)
 
     # Correct crosslinker type from XLDSS to DSS
     for r in po.system.restraints:
