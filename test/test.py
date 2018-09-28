@@ -47,7 +47,7 @@ class Tests(unittest.TestCase):
         self.assertEqual(len(m._spheres), 3640)
         self.assertEqual(len(m._atoms), 0)
         # Should be 1 ensemble
-        self.assertEqual([e.num_models for e in s.ensembles], [100])
+        self.assertEqual([e.num_models for e in s.ensembles], [1640])
         # Just one restraint - crosslinks
         xl, = s.restraints
         self.assertEqual(len(xl.experimental_cross_links), 40)
