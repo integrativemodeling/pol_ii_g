@@ -20,6 +20,10 @@ import IMP.pmi.restraints.basic
 import IMP.pmi.restraints.crosslinking
 import os,sys
 
+sys.path.append('../util/')
+import make_archive
+
+
 def add_atomic_rep(mol,chain,unstructured_bead_size,clr,prot):
         atomic = mol.add_structure('../data/'+prot +".pdb",chain_id=chain,offset=0)
         mol.add_representation(atomic, resolutions=[1,10],color = clr)
@@ -76,6 +80,7 @@ if '--mmcif' in sys.argv:
                        'of transcription regulation by Gdown1')
     # Add publication
     po.system.citations.append(ihm.Citation.from_pubmed_id(30190596))
+
 
 s.dry_run = '--dry-run' in sys.argv
 
@@ -287,10 +292,14 @@ if '--mmcif' in sys.argv:
                             feature='RMSD', num_models_begin=1693,
                             num_models_end=num_cluster_models))
 
+    r = ihm.location.Repository(doi="10.5281/zenodo.1438479",
+                     url="https://zenodo.org/record/1438479/files/cluster0.dcd")
+    f = ihm.location.OutputFileLocation(path='.', repo=r,
+                details="All ensemble structures for cluster 0")
     e = po._add_simple_ensemble(analysis.steps[-1],
                                 name="Cluster 0", num_models=num_cluster_models,
                                 drmsd=12.2, num_models_deposited=1,
-                                localization_densities={}, ensemble_file=None)
+                                localization_densities={}, ensemble_file=f)
 
     # Add localization densities
     asym = po.asym_units['GDOWN1.0']
@@ -319,5 +328,17 @@ if '--mmcif' in sys.argv:
     for r in po.system.restraints:
         if hasattr(r, 'linker_type') and r.linker_type == 'XLDSS':
             r.linker_type = 'DSS'
+
+    # Point to repositories where files are deposited
+    repos = [ihm.location.Repository(
+          doi="10.5281/zenodo.1438479", root="..",
+          url="https://zenodo.org/record/1438479/files/pol_ii_g-master.zip",
+          top_directory="pol_ii_g-master")]
+    for subdir, zipname in make_archive.ARCHIVES.items():
+        repos.append(ihm.location.Repository(
+              doi="10.5281/zenodo.1438479", root="../%s" % subdir,
+              url="https://zenodo.org/record/1438479/files/%s.zip" % zipname,
+              top_directory=os.path.basename(subdir)))
+    po.system.update_locations_in_repositories(repos)
 
     po.flush()

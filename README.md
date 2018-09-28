@@ -1,7 +1,9 @@
-These scripts demonstrate the use of IMP and PMI in the modeling of the
-Pol II(G) complex using DSS chemical cross-links.
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1438479.svg)](https://doi.org/10.5281/zenodo.1438479)
 
 # Localizing gdown1 on POL II using integrative structure modeling
+
+These scripts demonstrate the use of IMP and PMI in the modeling of the
+Pol II(G) complex using DSS chemical cross-links.
 
 ## Input data (directory `data`):
 
