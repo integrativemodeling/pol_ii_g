@@ -29,15 +29,15 @@ import make_archive
 
 
 def add_atomic_rep(mol,chain,unstructured_bead_size,clr,prot):
-        atomic = mol.add_structure('../data/'+prot +".pdb",chain_id=chain,offset=0)
-        mol.add_representation(atomic, resolutions=[1,10],color = clr)
-        if len(mol[:]-atomic) >0:
-            mol.add_representation(mol[:]-atomic,resolutions=[10],color=clr)
-        return mol
+    atomic = mol.add_structure('../data/'+prot +".pdb",chain_id=chain,offset=0)
+    mol.add_representation(atomic, resolutions=[1,10],color = clr)
+    if len(mol[:]-atomic) >0:
+        mol.add_representation(mol[:]-atomic,resolutions=[10],color=clr)
+    return mol
 
 def add_nonatomic_rep(mol,chain,unstructured_bead_size,clr):
-        mol.add_representation(mol[:],resolutions=[unstructured_bead_size],color=clr,setup_particles_as_densities=True,density_force_compute=False)
-        return mol
+    mol.add_representation(mol[:],resolutions=[unstructured_bead_size],color=clr,setup_particles_as_densities=True,density_force_compute=False)
+    return mol
 
 ##############################################################
 ##############################################################
@@ -53,7 +53,7 @@ elif '--dry-run' in sys.argv:
     taskid=0
 else:
     taskid = int(sys.argv[1])
-#input files 
+#input files
 xlink_file = '../data/allcxg.csv'
 all_cg_bead_size = 10
 
@@ -97,21 +97,21 @@ gdown1=[]
 pol=[]
 #loop over for single copy of proteins with PDB structures
 for chain in ['A','B','C','D','E','F','G','H','I','J','K','L']:
-        prot = pol2g_components[chain][0]
-        color = pol2g_colors[chain][0]
-        mol1 = st.create_molecule(prot, sequence=pol2g_seqs[prot+chain],chain_id=chain)
-        mol = add_atomic_rep(mol1,chain,all_cg_bead_size,color,'5flm')
-       	mols.append(mol)
-        pol2g_mols.append(mol)
-        pol.append(mol)
+    prot = pol2g_components[chain][0]
+    color = pol2g_colors[chain][0]
+    mol1 = st.create_molecule(prot, sequence=pol2g_seqs[prot+chain],chain_id=chain)
+    mol = add_atomic_rep(mol1,chain,all_cg_bead_size,color,'5flm')
+    mols.append(mol)
+    pol2g_mols.append(mol)
+    pol.append(mol)
 for chain in ['X']:
-        prot = pol2g_components[chain][0]
-        color = pol2g_colors[chain][0]
-        mol1 = st.create_molecule(prot, sequence=pol2g_seqs[prot+chain],chain_id=chain)
-        mol = add_nonatomic_rep(mol1,chain,all_cg_bead_size,color)
-        mols.append(mol)
-        pol2g_mols.append(mol)
-        gdown1.append(mol)
+    prot = pol2g_components[chain][0]
+    color = pol2g_colors[chain][0]
+    mol1 = st.create_molecule(prot, sequence=pol2g_seqs[prot+chain],chain_id=chain)
+    mol = add_nonatomic_rep(mol1,chain,all_cg_bead_size,color)
+    mols.append(mol)
+    pol2g_mols.append(mol)
+    gdown1.append(mol)
 ##  calling System.build() creates all States and Molecules (and their representations)
 ##  Once you call build(), anything without representation is destroyed.
 ##  You can still use handles like molecule[a:b], molecule.get_atomic_residues() or molecule.get_non_atomic_residues()
@@ -143,20 +143,20 @@ pol2g_complexn=[]
 
 
 for i,mol in enumerate(pol2g_mols):
-  # create a rigid body for each domain with structural information, the flexible beads inside are part of the rigid body, the remaining part of the 
- #crystal structures of RPB1 and RPB2   
-        if i in range(12):
-		print(i, mol)
-                pol2g_unstructured=mol.get_non_atomic_residues()
-                pol2g_structured=mol.get_atomic_residues()
-                pol2g_all=mol.get_residues()
-                pol2g_complex.append(pol2g_all)
-                pol2g_complexn.append(pol2g_unstructured)
-     
-	if i in [12]:
-                pol2g_u=mol.get_non_atomic_residues()
-                pol2g_rigid1=mol.get_residues()
-                dof.create_flexible_beads(pol2g_rigid1,max_trans=FLEX_MAX_TRANS,resolution=10)
+  # create a rigid body for each domain with structural information, the flexible beads inside are part of the rigid body, the remaining part of the
+ #crystal structures of RPB1 and RPB2
+    if i in range(12):
+        print(i, mol)
+        pol2g_unstructured=mol.get_non_atomic_residues()
+        pol2g_structured=mol.get_atomic_residues()
+        pol2g_all=mol.get_residues()
+        pol2g_complex.append(pol2g_all)
+        pol2g_complexn.append(pol2g_unstructured)
+
+    if i in [12]:
+        pol2g_u=mol.get_non_atomic_residues()
+        pol2g_rigid1=mol.get_residues()
+        dof.create_flexible_beads(pol2g_rigid1,max_trans=FLEX_MAX_TRANS,resolution=10)
 
 
 print(dof)
@@ -170,11 +170,11 @@ dof.create_flexible_beads(pol2g_molc3,max_trans=FLEX_MAX_TRANS,resolution=10)
 ##############################################################
 ##############################################################
 ##############################################################
-##############################################################    
+##############################################################
 ####################### RESTRAINTS #####################
 output_objects = [] # keep a list of functions that need to be reported
 display_restraints = [] # display as springs in RMF
- 
+
 # Connectivity keeps things connected along the backbone (ignores if inside same rigid body)
 crs = []
 for mol in pol2g_mols:
@@ -240,7 +240,7 @@ xlr.rs.set_weight(50.0)
 # Set PSI value instead of sampling it
 xlr.set_psi_is_sampled(True)
 #psi = xlr.psi_dictionary["PSI"][0]
-#psi.set_scale(0.04) 
+#psi.set_scale(0.04)
 sf = IMP.core.RestraintsScoringFunction(IMP.pmi.tools.get_restraint_set(mdl))
 print(sf.evaluate(False))
 
@@ -262,9 +262,9 @@ rex=IMP.pmi.macros.ReplicaExchange0(mdl,
                                     crosslink_restraints=display_restraints,                     # will display like XLs
                                     monte_carlo_temperature = 1.0,
                                     replica_exchange_minimum_temperature = 1.0,
-				    replica_exchange_maximum_temperature = 2.5,
-				    num_sample_rounds = 1,
-				    number_of_best_scoring_models = 5,
+                                    replica_exchange_maximum_temperature = 2.5,
+                                    num_sample_rounds = 1,
+                                    number_of_best_scoring_models = 5,
                                     monte_carlo_sample_objects=dof.get_movers(),  # pass MC movers
                                     global_output_directory='gdownrb_%d' % taskid,
                                     output_objects=output_objects,
