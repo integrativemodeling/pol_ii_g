@@ -7,6 +7,10 @@ import RMF
 import ihm
 import ihm.analysis
 try:
+    import ihm.reference
+except ImportError:
+    pass
+try:
     from ihm import cross_linkers
 except ImportError:
     pass
@@ -279,6 +283,27 @@ if '--mmcif' in sys.argv:
     import tempfile
     import shutil
     import subprocess
+
+    # Link entities to UniProt
+    if hasattr(ihm, 'reference'):
+        lpep = ihm.LPeptideAlphabet()
+        # sequence taken from PDB 6drd, differs from canonical UniProt
+        d = "Sequence matches that of PDB 6drd"
+        sd_rpb5 = [ihm.reference.SeqDif(44, lpep['S'], lpep['F'], details=d),
+                   ihm.reference.SeqDif(132, lpep['Q'], lpep['E'], details=d),
+                   ihm.reference.SeqDif(157, lpep['T'], lpep['S'], details=d),
+                   ihm.reference.SeqDif(186, lpep['K'], lpep['R'], details=d)]
+        for subunit, accession, seq_dif in (
+                ('RPB1.0', 'P24928', []), ('RPB2.0', 'P30876', []),
+                ('RPB3.0', 'P19387', []), ('RPB4.0', 'O15514', []),
+                ('RPB5.0', 'P19388', sd_rpb5), ('RPB6.0', 'P61218', []),
+                ('RPB7.0', 'P62487', []), ('RPB8.0', 'P52434', []),
+                ('RPB9.0', 'P36954', []), ('RPB10.0', 'P62875', []),
+                ('RPB11.0', 'P52435', []), ('RPB12.0', 'P53803', []),
+                ('GDOWN1.0', 'P0CAP2', [])):
+            ref = ihm.reference.UniProtSequence.from_accession(accession)
+            ref.alignments.append(ihm.reference.Alignment(seq_dif=seq_dif))
+            e = po.asym_units[subunit].entity.references.append(ref)
 
     # Correct number of output models to account for multiple runs
     protocol = po.system.orphan_protocols[-1]
