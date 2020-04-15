@@ -6,12 +6,9 @@ import IMP
 import RMF
 import ihm
 import ihm.analysis
+import ihm.cross_linkers
 try:
     import ihm.reference
-except ImportError:
-    pass
-try:
-    from ihm import cross_linkers
 except ImportError:
     pass
 import IMP.atom
@@ -355,10 +352,8 @@ if '--mmcif' in sys.argv:
 
     # Correct crosslinker type from XLDSS to DSS
     for r in po.system.restraints:
-        if hasattr(r, 'linker_type') and r.linker_type == 'XLDSS':
-            r.linker_type = 'DSS'
-        elif hasattr(r, 'linker') and r.linker.auth_name == 'XLDSS':
-            r.linker = cross_linkers.dss
+        if hasattr(r, 'linker') and r.linker.auth_name == 'XLDSS':
+            r.linker = ihm.cross_linkers.dss
 
     # Point to repositories where files are deposited
     repos = [ihm.location.Repository(
