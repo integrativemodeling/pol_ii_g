@@ -233,7 +233,9 @@ kw.set_residue2_key("res2")
 xldb = IMP.pmi.io.crosslink.CrossLinkDataBase(kw)
 xldb.create_set_from_file(xlink_file)
 
-xlr = IMP.pmi.restraints.crosslinking.CrossLinkingMassSpectrometryRestraint(root_hier=root_hier,CrossLinkDataBase=xldb,length=21.0,label="XLDSS",filelabel='DSS',resolution=1,slope=0.01)
+xlr = IMP.pmi.restraints.crosslinking.CrossLinkingMassSpectrometryRestraint(
+        root_hier=root_hier, database=xldb, length=21.0, label="XLDSS",
+        linker=ihm.cross_linkers.dss, filelabel='DSS', resolution=1, slope=0.01)
 xlr.add_to_model()
 output_objects.append(xlr)
 display_restraints.append(xlr)
@@ -349,11 +351,6 @@ if '--mmcif' in sys.argv:
     shutil.rmtree(tmpd)
 
     model = po.add_model(e.model_group)
-
-    # Correct crosslinker type from XLDSS to DSS
-    for r in po.system.restraints:
-        if hasattr(r, 'linker') and r.linker.auth_name == 'XLDSS':
-            r.linker = ihm.cross_linkers.dss
 
     # Point to repositories where files are deposited
     repos = [ihm.location.Repository(
