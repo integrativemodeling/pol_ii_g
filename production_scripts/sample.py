@@ -6,6 +6,7 @@ import IMP
 import RMF
 import ihm
 import ihm.analysis
+import ihm.dumper
 import ihm.cross_linkers
 try:
     import ihm.reference
@@ -79,7 +80,7 @@ s = IMP.pmi.topology.System(mdl)
 
 if '--mmcif' in sys.argv:
     # Record the modeling protocol to an mmCIF file
-    po = IMP.pmi.mmcif.ProtocolOutput(open('pol_ii_g.cif', 'w'))
+    po = IMP.pmi.mmcif.ProtocolOutput()
     s.add_protocol_output(po)
     po.system.title = ('Architecture of Pol II(G) and molecular mechanism '
                        'of transcription regulation by Gdown1')
@@ -364,4 +365,6 @@ if '--mmcif' in sys.argv:
               top_directory=os.path.basename(subdir)))
     po.system.update_locations_in_repositories(repos)
 
-    po.flush()
+    po.finalize()
+    with open('pol_ii_g.cif', 'w') as fh:
+        ihm.dumper.write(fh, [po.system])
