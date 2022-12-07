@@ -191,8 +191,8 @@ print(sf.evaluate(False))
 # Excluded volume - automatically more efficient due to rigid bodies
 
 ev1 = IMP.pmi.restraints.stereochemistry.ExcludedVolumeSphere(included_objects = gdown1,resolution=10)
-ev1.add_to_model()
 ev1.set_label('gdown1')
+ev1.add_to_model()
 output_objects.append(ev1)
 
 sf = IMP.core.RestraintsScoringFunction(IMP.pmi.tools.get_restraint_set(mdl))
@@ -202,9 +202,9 @@ ev2 = IMP.pmi.restraints.stereochemistry.ExcludedVolumeSphere(included_objects =
                                                               other_objects = pol,
                                                               resolution=10)
 
-ev2.add_to_model()
 ev2.rs.set_weight(1.0)
 ev2.set_label('all')
+ev2.add_to_model()
 output_objects.append(ev2)
 
 sf = IMP.core.RestraintsScoringFunction(IMP.pmi.tools.get_restraint_set(mdl))
@@ -215,9 +215,9 @@ print(pol)
 
 ev3 = IMP.pmi.restraints.stereochemistry.ExcludedVolumeSphere(included_objects = pol2g_molc3,resolution=10)
 
-ev3.add_to_model()
 ev3.rs.set_weight(1.0)
 ev3.set_label('all')
+ev3.add_to_model()
 output_objects.append(ev3)
 
 sf = IMP.core.RestraintsScoringFunction(IMP.pmi.tools.get_restraint_set(mdl))
