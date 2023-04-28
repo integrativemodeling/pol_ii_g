@@ -261,19 +261,19 @@ print(dof.get_movers())
 print(len(dof.get_movers()))
 print(gdown1)
 # Run replica exchange Monte Carlo sampling
-rex=IMP.pmi.macros.ReplicaExchange0(mdl,
-                                    root_hier=root_hier,                          # pass the root hierarchy
-                                    monte_carlo_temperature = 1.0,
-                                    replica_exchange_minimum_temperature = 1.0,
-                                    replica_exchange_maximum_temperature = 2.5,
-                                    num_sample_rounds = 1,
-                                    number_of_best_scoring_models = 5,
-                                    monte_carlo_sample_objects=dof.get_movers(),  # pass MC movers
-                                    global_output_directory='gdownrb_%d' % taskid,
-                                    output_objects=output_objects,
-                                    monte_carlo_steps=10,
-                                    number_of_frames=num_frames,
-                                    test_mode=s.dry_run)
+rex=IMP.pmi.macros.ReplicaExchange(mdl,
+                                   root_hier=root_hier,                          # pass the root hierarchy
+                                   monte_carlo_temperature = 1.0,
+                                   replica_exchange_minimum_temperature = 1.0,
+                                   replica_exchange_maximum_temperature = 2.5,
+                                   num_sample_rounds = 1,
+                                   number_of_best_scoring_models = 5,
+                                   monte_carlo_sample_objects=dof.get_movers(),  # pass MC movers
+                                   global_output_directory='gdownrb_%d' % taskid,
+                                   output_objects=output_objects,
+                                   monte_carlo_steps=10,
+                                   number_of_frames=num_frames,
+                                   test_mode=s.dry_run)
 
 rex.execute_macro()
 
