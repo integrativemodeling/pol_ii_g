@@ -286,6 +286,8 @@ if '--mmcif' in sys.argv:
     # Link entities to UniProt
     if hasattr(ihm, 'reference'):
         lpep = ihm.LPeptideAlphabet()
+        d = "Sequence updated in UniProt post publication"
+        sd_rpb1 = [ihm.reference.SeqDif(1835, lpep['T'], lpep['A'], details=d)]
         # sequence taken from PDB 6drd, differs from canonical UniProt
         d = "Sequence matches that of PDB 6drd"
         sd_rpb5 = [ihm.reference.SeqDif(44, lpep['S'], lpep['F'], details=d),
@@ -293,7 +295,7 @@ if '--mmcif' in sys.argv:
                    ihm.reference.SeqDif(157, lpep['T'], lpep['S'], details=d),
                    ihm.reference.SeqDif(186, lpep['K'], lpep['R'], details=d)]
         for subunit, accession, seq_dif in (
-                ('RPB1.0', 'P24928', []), ('RPB2.0', 'P30876', []),
+                ('RPB1.0', 'P24928', sd_rpb1), ('RPB2.0', 'P30876', []),
                 ('RPB3.0', 'P19387', []), ('RPB4.0', 'O15514', []),
                 ('RPB5.0', 'P19388', sd_rpb5), ('RPB6.0', 'P61218', []),
                 ('RPB7.0', 'P62487', []), ('RPB8.0', 'P52434', []),
